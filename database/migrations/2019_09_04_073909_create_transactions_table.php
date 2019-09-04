@@ -13,9 +13,18 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('Transactions', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('idSender')->unsigned();
+            $table->integer('idRecipient')->unsigned();
+            $table->integer('ScoreSender');
+            $table->integer('ScoreRecipient');
+            $table->integer('SendSuma');
             $table->timestamps();
+        });
+        Schema::table('Transactions', function($table) {
+            $table->foreign('idSender')->references('id')->on('Users')->onDelete('cascade');
+            $table->foreign('idRecipient')->references('id')->on('Users')->onDelete('cascade');
         });
     }
 

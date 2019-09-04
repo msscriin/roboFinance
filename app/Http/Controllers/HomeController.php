@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request as Request;
+use App\User as User;
+use App\Transaction as Transaction;
 
 class HomeController extends Controller
 {
@@ -12,7 +14,12 @@ class HomeController extends Controller
      **/
     public function getUsers( int $id = 0 ) : string
     {
-        return json_encode("Andrey");
+        if( $id == 0 ){
+            $objUsers = User::with('balance')->get();
+        } else {
+            $objUsers = User::with('balance')->where('id', $id)->get();
+        }
+        return json_encode($objUsers);
     }
 
     /**
@@ -20,7 +27,8 @@ class HomeController extends Controller
      */
     public function getTransactions( int $id ) : string
     {
-        return json_encode("List transactions");
+        $obTransaction = Transaction::with('UserSender')->where('idSender', $id)->get();
+        return json_encode($obTransaction);
     }
 
     /**

@@ -13,9 +13,13 @@ class CreatePursesTable extends Migration
      */
     public function up()
     {
-        Schema::create('purses', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('Purses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('idUsers')->unsigned();
+            $table->integer('Score');
+            $table->integer('suma');
             $table->timestamps();
+            $table->foreign('idUsers')->references('id')->on('Users')->onDelete('cascade');
         });
     }
 

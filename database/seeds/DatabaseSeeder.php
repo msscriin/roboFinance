@@ -11,6 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call('UserTableSeeder');
+        $this->command->info('Пользователи созданы успешно!');
+        $this->call('PurseTableSeeder');
+        $this->command->info('Информация о счетах пользователя добавлена успешно!');
     }
 }
