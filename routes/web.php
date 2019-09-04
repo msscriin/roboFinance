@@ -11,6 +11,12 @@
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Route::get('users', 'HomeController@getUsers');
+Route::get('users/{id}', 'HomeController@getUsers');
+Route::get('users/{id}/transactions', 'HomeController@getTransactions');
+Route::post('users/{id}/transactions', 'HomeController@setTransactions');
