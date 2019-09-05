@@ -53,6 +53,6 @@ class HomeController extends Controller
         }
 
 
-        return $message;
+        return json_encode($message);
     }
 }
