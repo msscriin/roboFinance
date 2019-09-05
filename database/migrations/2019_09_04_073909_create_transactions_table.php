@@ -17,8 +17,6 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->integer('idSender')->unsigned();
             $table->integer('idRecipient')->unsigned();
-            $table->integer('ScoreSender');
-            $table->integer('ScoreRecipient');
             $table->integer('SendSuma');
             $table->timestamps();
         });

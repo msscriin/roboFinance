@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request as Request;
 use App\User as User;
 use App\Transaction as Transaction;
+use \Validator;
+
 
 class HomeController extends Controller
 {
@@ -35,8 +37,22 @@ class HomeController extends Controller
      * @param int $id
      * @return string
      */
-    public function setTransactions( int $id, Request $result ) : string
+    public function setTransactions( int $id, Request $postRequest ) : string
     {
-        return json_encode("User added money");
+
+        $v = Validator::make($postRequest->all(), [
+            'idRecipient' => 'required',
+            'transfer' => 'required',
+        ]);
+
+        if ($v->fails() || $id === (int)$postRequest->idRecipient)
+        {
+            $message = "Получатель не зарегистрирован или вы пытаетесь осуществить перевод на свой счет.";
+        } else {
+            $message = Transaction::setTransaction( [$id, $postRequest->idRecipient, $postRequest->transfer] );
+        }
+
+
+        return $message;
     }
 }
